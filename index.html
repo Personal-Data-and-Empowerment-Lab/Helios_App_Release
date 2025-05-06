@@ -59,7 +59,7 @@
       const fileName = `HeliosApp_${formattedDate}.apk`;
 
       try {
-        const response = await fetch('app_debug.apk');
+        const response = await fetch('app-debug.apk');
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
