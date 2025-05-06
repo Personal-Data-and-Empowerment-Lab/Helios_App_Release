@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helios</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 40px;
+    }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2em;
+      color: #333;
+    }
+    .download-btn {
+      background: #007BFF;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+    .download-btn:hover {
+      background: #0056b3;
+    }
+    .update-text {
+      margin-top: 15px;
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <img src="helios_logo.png" alt="Helios" class="logo" />
+  <h1>Helios</h1>
+
+  <button class="download-btn" onclick="downloadAPK()">Download App</button>
+  <div class="update-text" id="last-updated">Last updated: </div>
+
+  <script>
+    const updateElement = document.getElementById('last-updated');
+
+    const lastUpdated = "06 May 2025";
+    updateElement.innerText = `Last updated: ${lastUpdated}`;
+
+    function downloadAPK() {
+      const fileName = `HeliosApp_${lastUpdated}.apk`;
+
+      const link = document.createElement('a');
+      link.href = 'app_debug.apk';
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  </script>
+</body>
+</html>
