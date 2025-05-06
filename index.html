@@ -41,27 +41,45 @@
   </style>
 </head>
 <body>
-  <img src="helios_logo.png" alt="Helios" class="logo" />
+  <img src="helios_logo.png" alt="Helios Logo" class="logo" />
   <h1>Helios</h1>
 
   <button class="download-btn" onclick="downloadAPK()">Download App</button>
   <div class="update-text" id="last-updated">Last updated: </div>
 
   <script>
+    // Set the update text
     const updateElement = document.getElementById('last-updated');
-
     const lastUpdated = "06 May 2025";
     updateElement.innerText = `Last updated: ${lastUpdated}`;
 
-    function downloadAPK() {
-      const fileName = `HeliosApp_${lastUpdated}.apk`;
+    // Download function using fetch and Blob
+    async function downloadAPK() {
+      const formattedDate = lastUpdated.replace(/\s/g, "_");
+      const fileName = `HeliosApp_${formattedDate}.apk`;
 
-      const link = document.createElement('a');
-      link.href = 'app_debug.apk';
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      try {
+        const response = await fetch('app_debug.apk');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+
+        // Cleanup
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error("Download failed:", error);
+        alert("Failed to download the app. Please try again later.",error);
+      }
     }
   </script>
 </body>
